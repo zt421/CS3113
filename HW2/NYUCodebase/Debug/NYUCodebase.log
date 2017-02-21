@@ -1,8 +1,11 @@
 ﻿  main.cpp
-c:\users\zambo\cs3113\project_template\windows\nyucodebase\nyucodebase\main.cpp(69): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\zambo\cs3113\project_template\windows\nyucodebase\nyucodebase\main.cpp(189): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
-c:\users\zambo\cs3113\project_template\windows\nyucodebase\nyucodebase\main.cpp(189): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\zambo\cs3113\project_template\windows\nyucodebase\nyucodebase\main.cpp(229): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
-c:\users\zambo\cs3113\project_template\windows\nyucodebase\nyucodebase\main.cpp(229): warning C4305: 'initializing': truncation from 'double' to 'float'
-  NYUCodebase.vcxproj -> C:\Users\Zambo\CS3113\project_template\Windows\NYUCodebase\Debug\NYUCodebase.exe
-  NYUCodebase.vcxproj -> C:\Users\Zambo\CS3113\project_template\Windows\NYUCodebase\Debug\NYUCodebase.pdb (Full PDB)
+c:\users\zambo\documents\cs3113\hw2\nyucodebase\main.cpp(114): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\zambo\documents\cs3113\hw2\nyucodebase\main.cpp(118): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\zambo\documents\cs3113\hw2\nyucodebase\main.cpp(119): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\zambo\documents\cs3113\hw2\nyucodebase\main.cpp(120): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\zambo\documents\cs3113\hw2\nyucodebase\main.cpp(249): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+c:\users\zambo\documents\cs3113\hw2\nyucodebase\main.cpp(249): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\zambo\documents\cs3113\hw2\nyucodebase\main.cpp(289): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+c:\users\zambo\documents\cs3113\hw2\nyucodebase\main.cpp(289): warning C4305: 'initializing': truncation from 'double' to 'float'
+  NYUCodebase.vcxproj -> C:\Users\Zambo\Documents\CS3113\HW2\Debug\NYUCodebase.exe
+  NYUCodebase.vcxproj -> C:\Users\Zambo\Documents\CS3113\HW2\Debug\NYUCodebase.pdb (Full PDB)
