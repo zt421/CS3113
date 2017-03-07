@@ -19,52 +19,6 @@
 
 SDL_Window* displayWindow;
 
-class Entity {
-public:
-	Entity(int textureID = 0, float halfWidth = 0, float halfHeight = 0, float x = 0, float y = 0,
-		float speed = 1, float direction_x = 0, float direction_y = 0) : textureID(textureID), halfWidth(halfWidth), halfHeight(halfHeight),
-		x(x), y(y), speed(speed), direction_x(direction_x), direction_y(direction_y) {}
-
-	void Draw(ShaderProgram& program) {
-		Matrix modelMatrix;
-
-		modelMatrix.identity();
-		modelMatrix.Translate(x, y, 0);
-
-		program.setModelMatrix(modelMatrix);
-
-		glBindTexture(GL_TEXTURE_2D, textureID);
-
-		float vertices[] = { -halfWidth, -halfHeight, halfWidth, -halfHeight, halfWidth, halfHeight, 
-			-halfWidth, -halfHeight, halfWidth, halfHeight, -halfWidth, halfHeight };
-		glVertexAttribPointer(program.positionAttribute, 2, GL_FLOAT, false, 0, vertices);
-		glEnableVertexAttribArray(program.positionAttribute);
-
-		float texCoords[] = { 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0 };
-		glVertexAttribPointer(program.texCoordAttribute, 2, GL_FLOAT, false, 0, texCoords);
-		glEnableVertexAttribArray(program.texCoordAttribute);
-
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-	}
-
-
-	float x;
-	float y;
-	
-	int textureID;
-
-	float halfWidth;
-	float halfHeight;
-
-	float speed;
-	float direction_x;
-	float direction_y;
-
-};
-
-
-
-
 GLuint LoadTexture(const char *filePath) {
 	int w, h, comp;
 	unsigned char* image = stbi_load(filePath, &w, &h, &comp, STBI_rgb_alpha);
@@ -99,7 +53,7 @@ int main(int argc, char *argv[])
 
 	SDL_Event event;
 	bool done = false;
-	
+	//attempt
 	glViewport(0, 0, 640, 360);
 	ShaderProgram program(RESOURCE_FOLDER"vertex_textured.glsl", RESOURCE_FOLDER"fragment_textured.glsl");
 
@@ -109,16 +63,12 @@ int main(int argc, char *argv[])
 	GLuint rightWin = LoadTexture(RESOURCE_FOLDER"rightWin.png");
 
 	Matrix projectionMatrix;
-	Matrix viewMatrix;
 	Matrix modelMatrix;
+	Matrix viewMatrix;
+
 	projectionMatrix.setOrthoProjection(-3.55, 3.55, -2.0f, 2.0f, -1.0f, 1.0f);
 
 	//initialized many variables
-
-	Entity paddle1(LoadTexture(RESOURCE_FOLDER"redPaddle.png"), .15, .5,2,1,10);
-	Entity paddle2(LoadTexture(RESOURCE_FOLDER"redPaddle.png"), .15, .5,1,1,10);
-	Entity ball(LoadTexture(RESOURCE_FOLDER"redPaddle.png"), .15, .15,-1,-1,5);
-
 	float p1PaddlePosition = 0;
 	float p2PaddlePosition = 0;
 
@@ -146,32 +96,26 @@ int main(int argc, char *argv[])
 			}
 			//checks for keyboard inputs. UP, DOWN for player 1, W and S for player 2
 			else if (event.type == SDL_KEYDOWN) {
-				if (event.key.keysym.scancode == SDL_SCANCODE_UP && paddle1.y+paddle1.halfHeight <= 2)
+				if (event.key.keysym.scancode == SDL_SCANCODE_UP && p1PaddlePosition <= 1.4)
 				{
 					p1PaddlePosition += 10 * elapsed;
-					paddle1.y += paddle1.speed * elapsed;
 				}
-				if (event.key.keysym.scancode == SDL_SCANCODE_DOWN && paddle1.y-paddle1.halfHeight >= -2)
+				if (event.key.keysym.scancode == SDL_SCANCODE_DOWN && p1PaddlePosition>= -1.4)
 				{
 					p1PaddlePosition -= 10 * elapsed;
-					paddle1.y -= paddle1.speed * elapsed;
 				}
 
-				if (event.key.keysym.scancode == SDL_SCANCODE_W && paddle2.y+paddle2.halfHeight <=2 )
+				if (event.key.keysym.scancode == SDL_SCANCODE_W && p2PaddlePosition <= 1.4)
 				{
-					paddle2.y += paddle2.speed * elapsed;
 					p2PaddlePosition += 10 * elapsed;
 				}
-				if (event.key.keysym.scancode == SDL_SCANCODE_S && paddle2.y-paddle2.halfHeight >= -2)
+				if (event.key.keysym.scancode == SDL_SCANCODE_S && p2PaddlePosition >= -1.4)
 				{
-					paddle2.y -= paddle2.speed * elapsed;
 					p2PaddlePosition -= 10 * elapsed;
 				}
 
 			}
 		}
-
-		
 
 		///FOR MOVING BALL Y COORDINATE
 		if (ballY >= 2)
@@ -203,12 +147,12 @@ int main(int argc, char *argv[])
 		}
 		else if (ballX >= 3.5) //for when player fails to hit ball
 		{
-			//whoWon = 1;
+			whoWon = 1;
 			
 		}
 		else if (ballX <= -3.5)
 		{
-			//whoWon = 2;
+			whoWon = 2;
 		}
 
 		if (goingLeft)   
@@ -229,11 +173,7 @@ int main(int argc, char *argv[])
 
 		
 		
-		///////////////////////////////////
-		paddle1.Draw(program);
-		paddle2.Draw(program);
-		ball.Draw(program);
-		////////////////////////////////////
+
 		
 		/////player 1
 		modelMatrix.identity();
