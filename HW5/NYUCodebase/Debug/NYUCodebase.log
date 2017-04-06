@@ -1,0 +1,25 @@
+﻿  main.cpp
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(67): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(78): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(179): warning C4018: '<': signed/unsigned mismatch
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(208): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(210): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(214): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(216): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(230): warning C4018: '<': signed/unsigned mismatch
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(301): warning C4018: '<': signed/unsigned mismatch
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(304): warning C4018: '<': signed/unsigned mismatch
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(318): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(319): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(321): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(348): warning C4018: '<': signed/unsigned mismatch
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(366): warning C4018: '<': signed/unsigned mismatch
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(390): warning C4018: '<': signed/unsigned mismatch
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(398): warning C4018: '<': signed/unsigned mismatch
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(444): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(448): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(452): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(456): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(516): warning C4305: 'argument': truncation from 'double' to 'float'
+  NYUCodebase.vcxproj -> C:\Users\Zambo\Documents\CS3113\HW5\Debug\NYUCodebase.exe
+  NYUCodebase.vcxproj -> C:\Users\Zambo\Documents\CS3113\HW5\Debug\NYUCodebase.pdb (Full PDB)
