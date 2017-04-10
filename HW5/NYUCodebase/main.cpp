@@ -115,12 +115,11 @@ public:
 		modelMatrix.Translate(position.x, position.y, position.z);
 		modelMatrix.Rotate(rotation);
 		modelMatrix.Scale(scale.x, scale.y, scale.z);
-		Matrix inverseMatrix = modelMatrix.inverse();
 		worldVertices.clear();
-		worldVertices.push_back(Vector3(-halfLengths.x, -halfLengths.y) * inverseMatrix);
-		worldVertices.push_back(Vector3(halfLengths.x, -halfLengths.y) * inverseMatrix);
-		worldVertices.push_back(Vector3(halfLengths.x, halfLengths.y) * inverseMatrix);
-		worldVertices.push_back(Vector3(-halfLengths.x, halfLengths.y) * inverseMatrix);
+		worldVertices.push_back(Vector3(-halfLengths.x, -halfLengths.y) * modelMatrix);
+		worldVertices.push_back(Vector3(halfLengths.x, -halfLengths.y) * modelMatrix);
+		worldVertices.push_back(Vector3(halfLengths.x, halfLengths.y) * modelMatrix);
+		worldVertices.push_back(Vector3(-halfLengths.x, halfLengths.y) * modelMatrix);
 
 		program.setModelMatrix(modelMatrix);
 
@@ -417,6 +416,7 @@ bool checkSATCollision(const std::vector<Vector3> &e1Points, const std::vector<V
 
 Entity player;
 Entity object1;
+Entity object2;
 
 bool ProcessEvents(SDL_Event& event,float elapsed) {
 	while (SDL_PollEvent(&event)) {
@@ -456,16 +456,57 @@ bool ProcessEvents(SDL_Event& event,float elapsed) {
 		object1.position.y = -1.85;
 		object1.velocity.y *= -1;
 	}
+
+	if (object2.position.x >= 3.5) {
+		object2.position.x = 3.45;
+		object2.velocity.x *= -1;
+	}
+	if (object2.position.x <= -3.5) {
+		object2.position.x = -3.45;
+		object2.velocity.x *= -1;
+	}
+	if (object2.position.y >= 1.9) {
+		object2.position.y = 1.85;
+		object2.velocity.y *= -1;
+	}
+	if (object2.position.y <= -1.9) {
+		object2.position.y = -1.85;
+		object2.velocity.y *= -1;
+	}
 	Vector3 p;
 	if (checkSATCollision(player.worldVertices, object1.worldVertices, p))
-		player.position.x = 3;
+	{
+		player.position.x += p.x / 2 * 1.01;
+		player.position.y += p.y / 2 * 1.01;
+
+		object1.position.x -= p.x / 2 * 1.01;
+		object1.position.y -= p.y / 2 * 1.01;
+	}
+	if (checkSATCollision(player.worldVertices, object2.worldVertices, p))
+	{
+		player.position.x += p.x / 2 * 1.01;
+		player.position.y += p.y / 2 * 1.01;
+
+		object2.position.x -= p.x / 2 * 1.01;
+		object2.position.y -= p.y / 2 * 1.01;
+	}
+	if (checkSATCollision(object1.worldVertices, object2.worldVertices, p))
+	{
+		object1.position.x += p.x / 2 * 1.01;
+		object1.position.y += p.y / 2 * 1.01;
+
+		object2.position.x -= p.x / 2 * 1.01;
+		object2.position.y -= p.y / 2 * 1.01;
+	}
 	return false;
 }
 
 void Update(float elapsed) {
 	player.update(elapsed);
 	object1.update(elapsed);
-	
+	object2.update(elapsed);
+	object1.rotation += 1 * elapsed;
+	object2.rotation += 1 * elapsed;
 	
 
 }
@@ -480,6 +521,7 @@ void Render(ShaderProgram& program, float elapsed) {
 
 	player.Draw(program);
 	object1.Draw(program);
+	object2.Draw(program);
 	program.setViewMatrix(viewMatrix);
 
 	glDisableVertexAttribArray(program.positionAttribute);
@@ -520,10 +562,16 @@ int main(int argc, char *argv[])
 	GLuint playerSprite = LoadTexture(RESOURCE_FOLDER"rectangle.png");
 	GLuint object1Sprite = LoadTexture(RESOURCE_FOLDER"redRectangle.png");
 	player = Entity(playerSprite, .5, 1, Vector3(-2,-1,0));
+
 	object1 = Entity(object1Sprite, .5, 1, Vector3(1, 1, 0));
 	object1.velocity = Vector3(1, -2, 0);
-	object1.rotation = 3;
+	object1.rotation = 30;
 	object1.scale = Vector3(2,1,1);
+
+	object2 = Entity(object1Sprite, .5, 1, Vector3(-1, 1, 0));
+	object2.velocity = Vector3(3, -2, 0);
+	object2.rotation = -60;
+	object2.scale = Vector3(2, 1, 1);
 
 
 	
