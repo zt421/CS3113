@@ -19,6 +19,7 @@
 #endif
 
 #include <cmath>
+#include <SDL_mixer.h>
 
 SDL_Window* displayWindow;
 
@@ -222,6 +223,12 @@ int main(int argc, char *argv[])
 		bullets[i] = Entity(spaceSheet, .2, (106-93)/56.0, Vector3(5, 5, 0), TextCoords(93.0 / 106, 1.0, 0.0, 56.0 / 159));
 	}
 
+	//--------------SOUND STUFF----------------------
+	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+	Mix_Chunk* shooting = Mix_LoadWAV("shoot.wav");
+	Mix_Chunk* explosion = Mix_LoadWAV("explode.wav");
+	Mix_Music* music = Mix_LoadMUS("bgm.mp3");
+	Mix_PlayMusic(music, -1);
 	
 	//makes a list of enemies
 	Entity enemyList[3][6];
@@ -259,6 +266,7 @@ int main(int argc, char *argv[])
 			}
 			if (gamestate == Running && event.key.keysym.scancode == SDL_SCANCODE_SPACE && lastFired >= 1)
 			{
+				Mix_PlayChannel(-1, shooting, 0);
 				lastFired = 0;
 				bulletIndex++;
 				if (bulletIndex >= 5)
@@ -336,6 +344,7 @@ int main(int argc, char *argv[])
 					{
 						if (enemyList[i][j].checkBoxBoxCollision(bullets[p]))
 						{
+							Mix_PlayChannel(-1, explosion, 0);
 							enemyList[i][j].visible = false;
 							bullets[p].visible = false;
 						}

@@ -88,6 +88,7 @@ void ShaderProgram::setViewMatrix(const Matrix &matrix) {
 void ShaderProgram::setModelMatrix(const Matrix &matrix) {
     glUseProgram(programID);
     glUniformMatrix4fv(modelMatrixUniform, 1, GL_FALSE, matrix.ml);
+	
 }
 
 void ShaderProgram::setProjectionMatrix(const Matrix &matrix) {
