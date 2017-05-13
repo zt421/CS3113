@@ -24,24 +24,21 @@
 #include <sstream>
 #include <SDL_mixer.h>
 
-//player states
+/*
+Zami Talukder Final Project
+LEFT, RIGHT AND SPACE TO MOVE AROUND
+AN ENEMY APPEARS IN THE THIRD LEVEL
+JUMP TO GREEN CIRCLE TO MOVE ONTO NEXT LEVEL
+PRESS TAB ANYTIME DURING THE GAME TO PAUSE
 
-//multiple levels
-//1- just jumping
-//2- harder jumping
-//3- jumping with enemies
-
-//AI
+ball.png IS USED TO ANIMATE THE BALL
 
 
 
-//title screen (basic)
 
-//tab to pause game or quit (new menu)
+*/
 
-//music and sound effects
 
-//animation / particle effects, smoke from feet of ball
 
 
 using namespace std;
@@ -56,12 +53,12 @@ SDL_Window* displayWindow;
 int mapWidth = -1;
 int mapHeight = -1;
 unsigned int** levelData;
-vector<Entity*> entities;   //STORES ALL ENTITIES
+vector<Entity*> entities;   //STORES important ENTITIES
 
-float gunOffset = 4;
-float gunInitial = 0;
-bool gunForward = true;
-float shootingTime = 0;
+float gunOffset = 4; //used to offset the gun from the player
+float gunInitial = 0; 
+bool gunForward = true; //when gun is moving forward and backward
+float shootingTime = 0; //time between bullets
 
 
 Mix_Chunk* shooting;
@@ -99,11 +96,6 @@ void worldToTileCoordinates(float worldX, float worldY, int* gridX, int* gridY) 
 	*gridY = (int)(-worldY / TILE_SIZE);
 }
 
-
-
-
-
-
 class Entity {
 public:
 	Entity(GLuint textureID = 0, float size = 1, float aspectRatio = 1, Vector3 position = Vector3(0,0,0),
@@ -119,8 +111,6 @@ public:
 	Entity(EntityType type, Vector3 position) : type(type), position(position) {
 		entityState = FREE;
 		bottomTile = 0;
-		halfLengths.x = TILE_SIZE;
-		halfLengths.y = TILE_SIZE;
 	}
 
 	EntityType type;
@@ -234,7 +224,7 @@ public:
 		velocity.x = lerp(velocity.x, 0, elapsed * friction.x);
 		position.x += velocity.x *  elapsed;
 		Entity* colliding = checkBoxBoxCollision();
-		//moveAway('x', colliding);
+		//moveAway('x', colliding);  //not used for this project
 
 		velocity.y += acceleration.y * elapsed;
 		velocity.y += gravity * elapsed;
@@ -362,7 +352,7 @@ public:
 
 		worldToTileCoordinates(position.x - halfLengths.x, position.y, &left, &garb);
 		worldToTileCoordinates(position.x, position.y, &x, &y);
-		if (levelData[y][left] != 0 ) //&& collidedBottom)
+		if (levelData[y][left] != 0 ) 
 		{
 			penetration = fabs(fabs(position.x - halfLengths.x) - fabs(((TILE_SIZE*left) + TILE_SIZE)));
 			position.x += penetration + .001;
@@ -376,7 +366,7 @@ public:
 
 		worldToTileCoordinates(position.x + halfLengths.x, position.y, &right, &garb);
 		worldToTileCoordinates(position.x, position.y, &x, &y);
-		if (levelData[y][right] != 0 ) //&& collidedBottom)
+		if (levelData[y][right] != 0 ) 
 		{
 			penetration = fabs(fabs(TILE_SIZE * right) - fabs(position.x + halfLengths.x));
 			position.x -= penetration + .001;
@@ -481,7 +471,7 @@ Entity banana;
 void placeEntity(const string& type, float x, float y) {
 	if (type == "Player")
 	{
-		player = Entity(ENTITIY_PLAYER, Vector3(x, y, 0));
+		player = Entity(ENTITIY_PLAYER, Vector3(x, y, 0)); //creates the player in each level
 		player.halfLengths = Vector3(TILE_SIZE/2, TILE_SIZE/2, 0);
 		player.friction = Vector3(0, 0, 0);
 		player.gravity = -3.7;
@@ -492,7 +482,7 @@ void placeEntity(const string& type, float x, float y) {
 	}
 	if (type == "Coin")
 	{
-		enemy = Entity(ENTITY_COIN, Vector3(x, y, 0));
+		enemy = Entity(ENTITY_COIN, Vector3(x, y, 0)); //creates the goal for every level
 		enemy.halfLengths = Vector3(TILE_SIZE/2, TILE_SIZE/2, 0);
 		entities.push_back(&enemy);
 		enemy.entities = &entities;
@@ -605,10 +595,10 @@ bool ProcessEvents(SDL_Event& event,float elapsed, int& ballIndex) {
 		if (event.type == SDL_QUIT || event.type == SDL_WINDOWEVENT_CLOSE) {
 			return true;
 		}
-		if (event.key.keysym.scancode == SDL_SCANCODE_Q)
+		/*if (event.key.keysym.scancode == SDL_SCANCODE_Q)  //cheat used for testing purposes
 		{
 			player.velocity.y += 1.88;
-		}
+		}*/
 		if (event.key.keysym.scancode == SDL_SCANCODE_SPACE) {
 			if(gameState == GAMESTART)gameState = LEVEL1;
 			if (gameState == PAUSE) gameState = beforePause;
@@ -625,7 +615,7 @@ bool ProcessEvents(SDL_Event& event,float elapsed, int& ballIndex) {
 
 	}
 
-	if (gameState == LEVEL1 || gameState == LEVEL2 || gameState == LEVEL3) {
+	if (gameState == LEVEL1 || gameState == LEVEL2 || gameState == LEVEL3) { //input polling for levels of game
 		const Uint8 *keys = SDL_GetKeyboardState(NULL);
 		//121,205
 		if (keys[SDL_SCANCODE_LEFT] && player.collidedBottom && player.bottomTile == 121)
@@ -667,11 +657,6 @@ bool ProcessEvents(SDL_Event& event,float elapsed, int& ballIndex) {
 			Mix_PlayChannel(-1, shooting, 0);
 		}
 	}
-
-	
-
-	
-	
 	return false;
 }
 
@@ -680,6 +665,7 @@ bool ProcessEvents(SDL_Event& event,float elapsed, int& ballIndex) {
 bool atRight = true;
 
 void Update(float elapsed) {
+	//updates player
 	if (gameState == LEVEL1 || gameState == LEVEL2 || gameState == LEVEL3) {
 		
 		player.update(elapsed);
@@ -690,15 +676,16 @@ void Update(float elapsed) {
 			player.velocity.x = 0;
 		}
 	}
+	//only for level3, updates gun and bullet
 	if (gameState == LEVEL3) {
 		shootingTime += elapsed;
 		//process hand
-		if (shootingTime >= 5) {
-			if (gunInitial < 1.25 && gunForward) {
+		if (shootingTime >= 5) { //only moves in gun after every 5 seconds
+			if (gunInitial < 1.25 && gunForward) { //moves gun into screen
 				gunImage.position.x = player.position.x + gunOffset - gunInitial;
 				gunInitial += .05;
 			}
-			else if (gunForward)
+			else if (gunForward) 
 			{
 				gunForward = false;
 				gunInitial = 0;
@@ -708,7 +695,7 @@ void Update(float elapsed) {
 
 			}
 
-			if (gunInitial < 1.55 && !gunForward)
+			if (gunInitial < 1.55 && !gunForward)// moves gun out of screen
 			{
 				gunImage.position.x = player.position.x + gunOffset + gunInitial;
 				gunInitial += .05;
@@ -727,7 +714,7 @@ void Update(float elapsed) {
 		float yDif = banana.position.y - player.position.y;
 		float xDif = banana.position.x - player.position.x;
 
-		if (xDif >= -1 && atRight) {
+		if (xDif >= -1 && atRight) {  //uses a little bit of swaying to get to player
 			banana.position.x -= 2 * elapsed;
 		}
 		else
@@ -737,8 +724,6 @@ void Update(float elapsed) {
 			banana.position.x += 2 * elapsed;
 		else
 			atRight = true;
-
-		//banana.position.y = player.position.y - player.halfLengths.y-banana.halfLengths.y;
 		
 		if (yDif >= 0)
 		{
@@ -766,6 +751,7 @@ void Render(ShaderProgram& program, float elapsed, GLuint spritesheet, GLuint ba
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	if (gameState == GAMESTART) {
+		//only renders gamestart page for opening
 		Matrix modelMatrix;
 
 		modelMatrix.identity();
@@ -795,6 +781,7 @@ void Render(ShaderProgram& program, float elapsed, GLuint spritesheet, GLuint ba
 	}
 
 	if (gameState == LEVEL1 || gameState == LEVEL2 || gameState == LEVEL3) {
+		//renders all the levels and player and goal for every level
 		viewMatrix.Translate(-player.position.x, -player.position.y, 0);
 		glBindTexture(GL_TEXTURE_2D, spritesheet);
 
@@ -802,10 +789,11 @@ void Render(ShaderProgram& program, float elapsed, GLuint spritesheet, GLuint ba
 		enemy.drawFromSpriteSheet(program, 136, 24, 16);
 
 		glBindTexture(GL_TEXTURE_2D, ballSheet);
-		player.drawFromSpriteSheet(program, ballIndex, 4, 1);
+		player.drawFromSpriteSheet(program, ballIndex, 4, 1); //ball index is used to animate the ball
 	}
 	
 	if (gameState == LEVEL3) {
+		//only renders the gun and bullet for level 3
 		glBindTexture(GL_TEXTURE_2D, bananaSheet);
 		banana.drawFromSpriteSheet(program,0,1,1);
 
@@ -878,7 +866,7 @@ void Render(ShaderProgram& program, float elapsed, GLuint spritesheet, GLuint ba
 int main(int argc, char *argv[])
 {
 	//Zami Talukder
-	//HW4 Intro to Game Programming
+	//Final Project Intro to Game Programming
 
 	SDL_Init(SDL_INIT_VIDEO);
 	displayWindow = SDL_CreateWindow("My Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 360, SDL_WINDOW_OPENGL);
@@ -888,16 +876,8 @@ int main(int argc, char *argv[])
 		glewInit();
 	#endif
 
-
-		
-
 	SDL_Event event;
 	bool done = false;
-	FILE *stream;
-	AllocConsole();
-	freopen_s(&stream,"CONIN$", "r", stdin);
-	freopen_s(&stream,"CONOUT$", "w", stdout);
-	freopen_s(&stream,"CONOUT$", "w", stderr);
 
 
 	glViewport(0, 0, 640, 360);
@@ -906,13 +886,14 @@ int main(int argc, char *argv[])
 	Matrix projectionMatrix;
 	
 	Matrix modelMatrix;
-	projectionMatrix.setOrthoProjection(-3.55, 3.55, -2.0f, 2.0f, -1.0f, 1.0f); //-3.55, 3.55, -2.0f, 2.0f, -1.0f, 1.0
+	projectionMatrix.setOrthoProjection(-3.55, 3.55, -2.0f, 2.0f, -1.0f, 1.0f); 
 	
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
 	Mix_Music* music = Mix_LoadMUS("bgm.mp3");
 	shooting = Mix_LoadWAV("shoot.wav");
 	Mix_PlayMusic(music, -1);
 	
+	//loads all the used textures
 	GLuint spritesheet = LoadTextureNearestNeighbor(RESOURCE_FOLDER"dirt-tiles.png");
 	GLuint ballsheet = LoadTextureNearestNeighbor(RESOURCE_FOLDER"ball.png");
 	GLuint gunSheet = LoadTextureNearestNeighbor(RESOURCE_FOLDER"gunImage.png");
@@ -923,17 +904,19 @@ int main(int argc, char *argv[])
 
 	gunImage = Entity(gunSheet, 1.0, 1.4823);
 
-
+	//preloads the first level to the game
 	string levelFile = "level1.txt";
 	if (!readFile(levelFile))
 		return 0;
+
 	banana = Entity(ENTITY_ENEMY, Vector3(0, 0, 0));
 	banana.halfLengths = Vector3(TILE_SIZE / 2, TILE_SIZE / 2, 0);
 	entities.push_back(&banana);
 
 	gameState = GAMESTART;
 	glUseProgram(program.programID);
-	int ballIndex = 0;
+
+	int ballIndex = 0; //used to keep track of which sprite the ball is using currently for animating
 	bool loaded2 = false;
 	bool loaded3 = false;
 	float lastFrameTicks = 0.0f;
@@ -942,11 +925,10 @@ int main(int argc, char *argv[])
 		float ticks = (float)SDL_GetTicks() / 1000.0f;
 		float elapsed = ticks - lastFrameTicks;
 		lastFrameTicks = ticks;
-		
 
 		done = ProcessEvents(event,elapsed,ballIndex);
 		Update(elapsed);
-		if (gameState == LEVEL2 && !loaded2) {
+		if (gameState == LEVEL2 && !loaded2) { //loads the second level
 			for (int i = 0; i < mapHeight; i++)
 			{
 				delete levelData[i];
@@ -955,7 +937,7 @@ int main(int argc, char *argv[])
 			readFile("level2.txt");
 			loaded2 = true;
 		}
-		if (gameState == LEVEL3 && !loaded3) {
+		if (gameState == LEVEL3 && !loaded3) { //loads the third level
 			for (int i = 0; i < mapHeight; i++)
 			{
 				delete levelData[i];

@@ -37,5 +37,7 @@ c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(496): warning C4244: '+
 c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(498): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
 c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(499): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
 c:\users\zambo\documents\cs3113\hw5\nyucodebase\main.cpp(558): warning C4305: 'argument': truncation from 'double' to 'float'
+  ShaderProgram.cpp
+  Generating Code...
   NYUCodebase.vcxproj -> C:\Users\Zambo\Documents\CS3113\HW5\Debug\NYUCodebase.exe
   NYUCodebase.vcxproj -> C:\Users\Zambo\Documents\CS3113\HW5\Debug\NYUCodebase.pdb (Full PDB)
