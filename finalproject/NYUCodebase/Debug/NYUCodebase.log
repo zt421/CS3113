@@ -1,0 +1,32 @@
+﻿  main.cpp
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(94): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(112): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(253): warning C4018: '<': signed/unsigned mismatch
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(296): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(298): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(302): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(304): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(326): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(333): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(339): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(354): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(368): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(382): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(487): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(610): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(633): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(638): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(643): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(650): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(655): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(660): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(666): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(699): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(705): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(707): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(714): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(724): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(909): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\zambo\documents\cs3113\final project\nyucodebase\main.cpp(924): warning C4305: 'argument': truncation from 'double' to 'float'
+  NYUCodebase.vcxproj -> C:\Users\Zambo\Documents\CS3113\final project\Debug\NYUCodebase.exe
+  NYUCodebase.vcxproj -> C:\Users\Zambo\Documents\CS3113\final project\Debug\NYUCodebase.pdb (Full PDB)
